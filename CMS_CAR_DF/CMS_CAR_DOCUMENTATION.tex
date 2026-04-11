@@ -1,0 +1,1544 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={R Notebook},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{R Notebook}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+This is an \href{http://rmarkdown.rstudio.com}{R Markdown} Notebook.
+When you execute code within the notebook, the results appear beneath
+the code.
+
+Try executing this chunk by clicking the \emph{Run} button within the
+chunk or by placing your cursor inside it and pressing
+\emph{Ctrl+Shift+Enter}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{CMS_CAR_DOCUMENTATION_files/figure-latex/unnamed-chunk-1-1.pdf}}
+
+\subsection{Подготовка на базата
+данни}\label{ux43fux43eux434ux433ux43eux442ux43eux432ux43aux430-ux43dux430-ux431ux430ux437ux430ux442ux430-ux434ux430ux43dux43dux438}
+
+Първата стъпка преди да притеглим базата данни е да я изтеглим от
+текущата директория с библиотеката haven.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(haven)}
+\FunctionTok{library}\NormalTok{(survey)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: grid
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: survival
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'survey'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:graphics':
+## 
+##     dotchart
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CMS\_DATA\_BG }\OtherTok{\textless{}{-}} \FunctionTok{read\_sav}\NormalTok{(}\StringTok{"CMS\_logical\_corrections\_V1.sav"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(CMS\_DATA\_BG)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 110
+##   New_ID    T2 T3         T4          T5 A2              A3A     A3B     A3C    
+##    <dbl> <dbl> <date>     <time>   <dbl> <dbl+lbl>       <dbl+l> <dbl+l> <dbl+l>
+## 1    395 11311 2026-03-27 12:53:24 22.5   2 [Most offic~ 3 [Rat~ 2 [Rat~ 3 [Rat~
+## 2    381 11303 2026-03-27 12:05:28  9.15  1 [Almost all~ 1 [Ver~ 2 [Rat~ 1 [Ver~
+## 3      1 11302 2026-03-20 11:36:24 22.2   1 [Almost all~ 3 [Rat~ 4 [Not~ 3 [Rat~
+## 4     44 11302 2026-03-23 12:59:20 13.8   2 [Most offic~ 2 [Rat~ 2 [Rat~ 2 [Rat~
+## 5    102 11308 2026-03-24 12:18:15 16.3  NA              4 [Not~ 3 [Rat~ 2 [Rat~
+## 6    108 11308 2026-03-24 12:39:04  8.63  2 [Most offic~ 2 [Rat~ 2 [Rat~ 2 [Rat~
+## # i 101 more variables: A4A <dbl+lbl>, A4B <dbl+lbl>, A4C <dbl+lbl>,
+## #   A4D <dbl+lbl>, A4E <dbl+lbl>, A4F <dbl+lbl>, A4G <dbl+lbl>, A4H <dbl+lbl>,
+## #   A4I <dbl+lbl>, A4J <dbl+lbl>, A4K <dbl+lbl>, A4L <dbl+lbl>, A4M <dbl+lbl>,
+## #   A4N <dbl+lbl>, A4O <dbl+lbl>, A4P <dbl+lbl>, A4Q <dbl+lbl>, A4R <dbl+lbl>,
+## #   A4S <dbl+lbl>, A4T <dbl+lbl>, A4U <dbl+lbl>, A4V <dbl+lbl>, A4W <dbl+lbl>,
+## #   A8 <dbl+lbl>, A9A <dbl+lbl>, A9B <dbl+lbl>, A9C <dbl+lbl>, A9D <dbl+lbl>,
+## #   A10A <dbl+lbl>, A10B <dbl+lbl>, A10C <dbl+lbl>, A10D <dbl+lbl>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CMS\_DATA\_BG }\OtherTok{\textless{}{-}}\NormalTok{ CMS\_DATA\_BG }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \CommentTok{\# keep existing Changed\_dummy entries; treat NA as 0 only for this update step}
+    \AttributeTok{Changed\_dummy =} \FunctionTok{if\_else}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(Changed\_dummy), }\DecValTok{0}\NormalTok{, Changed\_dummy),}
+
+    \AttributeTok{missing\_key =} \FunctionTok{if\_else}\NormalTok{(}
+      \FunctionTok{is.na}\NormalTok{(D2) }\SpecialCharTok{|}\NormalTok{ D2 }\SpecialCharTok{\textgreater{}=} \DecValTok{99} \SpecialCharTok{|}                  \CommentTok{\# Age}
+      \FunctionTok{is.na}\NormalTok{(D1) }\SpecialCharTok{|} \SpecialCharTok{!}\NormalTok{(D1 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\SpecialCharTok{|}        \CommentTok{\# Sex}
+      \FunctionTok{is.na}\NormalTok{(D26) }\SpecialCharTok{|} \SpecialCharTok{!}\NormalTok{(D26 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)), }\CommentTok{\# Settlement}
+      \DecValTok{1}\NormalTok{, }\DecValTok{0}
+\NormalTok{    ),}
+
+    \CommentTok{\# preserve prior 1s, add new 1s where key covariates are bad}
+    \AttributeTok{Changed\_dummy =} \FunctionTok{if\_else}\NormalTok{(Changed\_dummy }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{|}\NormalTok{ missing\_key }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{df\_clean }\OtherTok{\textless{}{-}}\NormalTok{ CMS\_DATA\_BG }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{age\_group =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      D2 }\SpecialCharTok{\textgreater{}=} \DecValTok{18} \SpecialCharTok{\&}\NormalTok{ D2 }\SpecialCharTok{\textless{}=} \DecValTok{24} \SpecialCharTok{\textasciitilde{}} \StringTok{"18{-}24"}\NormalTok{,}
+\NormalTok{      D2 }\SpecialCharTok{\textless{}=} \DecValTok{34} \SpecialCharTok{\textasciitilde{}} \StringTok{"25{-}34"}\NormalTok{,}
+\NormalTok{      D2 }\SpecialCharTok{\textless{}=} \DecValTok{44} \SpecialCharTok{\textasciitilde{}} \StringTok{"35{-}44"}\NormalTok{,}
+\NormalTok{      D2 }\SpecialCharTok{\textless{}=} \DecValTok{54} \SpecialCharTok{\textasciitilde{}} \StringTok{"45{-}54"}\NormalTok{,}
+\NormalTok{      D2 }\SpecialCharTok{\textless{}=} \DecValTok{64} \SpecialCharTok{\textasciitilde{}} \StringTok{"55{-}64"}\NormalTok{,}
+\NormalTok{      D2 }\SpecialCharTok{\textgreater{}=} \DecValTok{65} \SpecialCharTok{\textasciitilde{}} \StringTok{"65+"}
+\NormalTok{    ),}
+    \AttributeTok{sex =} \FunctionTok{factor}\NormalTok{(D1, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{)),}
+    \AttributeTok{urban =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      D26 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"City"}\NormalTok{,}
+\NormalTok{      D26 }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Town"}\NormalTok{,}
+\NormalTok{      D26 }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{\textasciitilde{}} \StringTok{"Rural"}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Share dropped}
+\FunctionTok{table}\NormalTok{(df\_clean}\SpecialCharTok{$}\NormalTok{Changed\_dummy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##    0    1 
+## 1004   10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Distributions}
+\FunctionTok{table}\NormalTok{(df\_clean}\SpecialCharTok{$}\NormalTok{age\_group)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## 18-24 25-34 35-44 45-54 55-64   65+ 
+##    48   128   190   196   234   218
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(df\_clean}\SpecialCharTok{$}\NormalTok{sex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   Male Female 
+##    500    514
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(df\_clean}\SpecialCharTok{$}\NormalTok{urban)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  City Rural  Town 
+##   521   275   218
+\end{verbatim}
+
+\subsection{Рейкинг и конструкция на пост-стратификационните
+тегла}\label{ux440ux435ux439ux43aux438ux43dux433-ux438-ux43aux43eux43dux441ux442ux440ux443ux43aux446ux438ux44f-ux43dux430-ux43fux43eux441ux442-ux441ux442ux440ux430ux442ux438ux444ux438ux43aux430ux446ux438ux43eux43dux43dux438ux442ux435-ux442ux435ux433ux43bux430}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(eurostat)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_raw }\OtherTok{\textless{}{-}} \FunctionTok{get\_eurostat}\NormalTok{(}\StringTok{"demo\_pjan"}\NormalTok{, }\AttributeTok{time\_format =} \StringTok{"num"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Dataset query already saved in cache_list.json...
+\end{verbatim}
+
+\begin{verbatim}
+## Reading cache file C:\Users\STOYCH~1.RUS\AppData\Local\Temp\Rtmp4M0RU4/eurostat/08b00d547fc0cb3969d9dc32d7f6bd9d.rds
+\end{verbatim}
+
+\begin{verbatim}
+## Table  demo_pjan  read from cache file:  C:\Users\STOYCH~1.RUS\AppData\Local\Temp\Rtmp4M0RU4/eurostat/08b00d547fc0cb3969d9dc32d7f6bd9d.rds
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bg\_pop }\OtherTok{\textless{}{-}}\NormalTok{ pop\_raw }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{    geo }\SpecialCharTok{==} \StringTok{"BG"}\NormalTok{,}
+\NormalTok{   TIME\_PERIOD}\SpecialCharTok{==} \DecValTok{2025}\NormalTok{,              }\CommentTok{\# survey year}
+\NormalTok{    sex }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{),}
+\NormalTok{age }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Y"}\NormalTok{, }\DecValTok{18}\SpecialCharTok{:}\DecValTok{99}\NormalTok{), }\StringTok{"Y\_GE90"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bg\_pop\_age\_sex }\OtherTok{\textless{}{-}}\NormalTok{ bg\_pop }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{age\_num =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      age }\SpecialCharTok{==} \StringTok{"Y\_GE90"} \SpecialCharTok{\textasciitilde{}} \DecValTok{90}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{sub}\NormalTok{(}\StringTok{"\^{}Y"}\NormalTok{, }\StringTok{""}\NormalTok{, age))}
+\NormalTok{    ),}
+    \AttributeTok{sex =} \FunctionTok{recode}\NormalTok{(sex,}
+      \StringTok{"M"} \OtherTok{=} \StringTok{"Male"}\NormalTok{,}
+      \StringTok{"F"} \OtherTok{=} \StringTok{"Female"}
+\NormalTok{    ),}
+    \AttributeTok{age\_group =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      age\_num }\SpecialCharTok{\textgreater{}=} \DecValTok{18} \SpecialCharTok{\&}\NormalTok{ age\_num }\SpecialCharTok{\textless{}=} \DecValTok{24} \SpecialCharTok{\textasciitilde{}} \StringTok{"18{-}24"}\NormalTok{,}
+\NormalTok{      age\_num }\SpecialCharTok{\textgreater{}=} \DecValTok{25} \SpecialCharTok{\&}\NormalTok{ age\_num }\SpecialCharTok{\textless{}=} \DecValTok{34} \SpecialCharTok{\textasciitilde{}} \StringTok{"25{-}34"}\NormalTok{,}
+\NormalTok{      age\_num }\SpecialCharTok{\textgreater{}=} \DecValTok{35} \SpecialCharTok{\&}\NormalTok{ age\_num }\SpecialCharTok{\textless{}=} \DecValTok{44} \SpecialCharTok{\textasciitilde{}} \StringTok{"35{-}44"}\NormalTok{,}
+\NormalTok{      age\_num }\SpecialCharTok{\textgreater{}=} \DecValTok{45} \SpecialCharTok{\&}\NormalTok{ age\_num }\SpecialCharTok{\textless{}=} \DecValTok{54} \SpecialCharTok{\textasciitilde{}} \StringTok{"45{-}54"}\NormalTok{,}
+\NormalTok{      age\_num }\SpecialCharTok{\textgreater{}=} \DecValTok{55} \SpecialCharTok{\&}\NormalTok{ age\_num }\SpecialCharTok{\textless{}=} \DecValTok{64} \SpecialCharTok{\textasciitilde{}} \StringTok{"55{-}64"}\NormalTok{,}
+\NormalTok{      age\_num }\SpecialCharTok{\textgreater{}=} \DecValTok{65}               \SpecialCharTok{\textasciitilde{}} \StringTok{"65+"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(age\_group)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(age\_group, sex) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{pop =} \FunctionTok{sum}\NormalTok{(values, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Freq =}\NormalTok{ pop }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(pop))}
+
+\NormalTok{bg\_pop\_age\_sex}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 4
+##    age_group sex       pop   Freq
+##    <chr>     <chr>   <dbl>  <dbl>
+##  1 18-24     Female 197135 0.0370
+##  2 18-24     Male   211294 0.0396
+##  3 25-34     Female 297669 0.0558
+##  4 25-34     Male   315942 0.0592
+##  5 35-44     Female 422012 0.0791
+##  6 35-44     Male   450044 0.0844
+##  7 45-54     Female 485510 0.0910
+##  8 45-54     Male   503867 0.0945
+##  9 55-64     Female 467655 0.0877
+## 10 55-64     Male   438877 0.0823
+## 11 65+       Female 935332 0.175 
+## 12 65+       Male   608474 0.114
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_sex }\OtherTok{\textless{}{-}}\NormalTok{ bg\_pop\_age\_sex }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(sex) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{pop =} \FunctionTok{sum}\NormalTok{(pop), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Freq =}\NormalTok{ pop }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(pop))}
+
+\NormalTok{pop\_sex}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 3
+##   sex        pop  Freq
+##   <chr>    <dbl> <dbl>
+## 1 Female 2805313 0.526
+## 2 Male   2528498 0.474
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(bg\_pop\_age\_sex}\SpecialCharTok{$}\NormalTok{Freq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{urb\_raw }\OtherTok{\textless{}{-}} \FunctionTok{get\_eurostat}\NormalTok{(}\StringTok{"ilc\_lvho01"}\NormalTok{, }\AttributeTok{time\_format =} \StringTok{"num"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Dataset query already saved in cache_list.json...
+\end{verbatim}
+
+\begin{verbatim}
+## Reading cache file C:\Users\STOYCH~1.RUS\AppData\Local\Temp\Rtmp4M0RU4/eurostat/ea0bc65593c7a9d7a9c68065031d34d4.rds
+\end{verbatim}
+
+\begin{verbatim}
+## Table  ilc_lvho01  read from cache file:  C:\Users\STOYCH~1.RUS\AppData\Local\Temp\Rtmp4M0RU4/eurostat/ea0bc65593c7a9d7a9c68065031d34d4.rds
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#https://ec.europa.eu/eurostat/databrowser/view/ILC\_LVHO01\_\_custom\_1762022/default/table?lang=en}
+
+\FunctionTok{unique}\NormalTok{(urb\_raw}\SpecialCharTok{$}\NormalTok{deg\_urb)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "DEG1"  "DEG2"  "DEG3"  "TOTAL"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bg\_urban }\OtherTok{\textless{}{-}}\NormalTok{ urb\_raw }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{    geo }\SpecialCharTok{==} \StringTok{"BG"}\NormalTok{,}
+\NormalTok{    TIME\_PERIOD }\SpecialCharTok{==} \DecValTok{2025}\NormalTok{,}
+\NormalTok{    deg\_urb }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"DEG1"}\NormalTok{, }\StringTok{"DEG2"}\NormalTok{, }\StringTok{"DEG3"}\NormalTok{), }
+\NormalTok{    incgrp}\SpecialCharTok{==}\StringTok{"TOTAL"}\NormalTok{, }
+\NormalTok{    building}\SpecialCharTok{==}\StringTok{"TOTAL"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_urban }\OtherTok{\textless{}{-}}\NormalTok{ bg\_urban }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{urban =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      deg\_urb }\SpecialCharTok{==} \StringTok{"DEG1"} \SpecialCharTok{\textasciitilde{}} \StringTok{"City"}\NormalTok{,}
+\NormalTok{      deg\_urb }\SpecialCharTok{==} \StringTok{"DEG2"} \SpecialCharTok{\textasciitilde{}} \StringTok{"Town"}\NormalTok{,}
+\NormalTok{      deg\_urb }\SpecialCharTok{==} \StringTok{"DEG3"} \SpecialCharTok{\textasciitilde{}} \StringTok{"Rural"}
+\NormalTok{    ),}
+    \AttributeTok{Freq =}\NormalTok{ values }\SpecialCharTok{/} \DecValTok{100}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(urban, Freq)}
+\FunctionTok{sum}\NormalTok{(pop\_urban}\SpecialCharTok{$}\NormalTok{Freq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bg\_pop\_age\_sex }\OtherTok{\textless{}{-}}\NormalTok{ bg\_pop\_age\_sex }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{age\_group =} \FunctionTok{factor}\NormalTok{(age\_group,}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"18{-}24"}\NormalTok{, }\StringTok{"25{-}34"}\NormalTok{, }\StringTok{"35{-}44"}\NormalTok{, }\StringTok{"45{-}54"}\NormalTok{, }\StringTok{"55{-}64"}\NormalTok{, }\StringTok{"65+"}\NormalTok{)),}
+    \AttributeTok{sex =} \FunctionTok{factor}\NormalTok{(sex,}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{))}
+\NormalTok{  )}
+
+\NormalTok{pop\_urban }\OtherTok{\textless{}{-}}\NormalTok{ pop\_urban }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{urban =} \FunctionTok{factor}\NormalTok{(urban,}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"City"}\NormalTok{, }\StringTok{"Town"}\NormalTok{, }\StringTok{"Rural"}\NormalTok{))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{design }\OtherTok{\textless{}{-}} \FunctionTok{svydesign}\NormalTok{(}
+  \AttributeTok{ids =} \SpecialCharTok{\textasciitilde{}}\DecValTok{1}\NormalTok{,}
+  \AttributeTok{data =}\NormalTok{ df\_clean}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in svydesign.default(ids = ~1, data = df_clean): No weights or
+## probabilities supplied, assuming equal probability
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{raked }\OtherTok{\textless{}{-}} \FunctionTok{rake}\NormalTok{(}
+\NormalTok{  design,}
+  \AttributeTok{sample.margins =} \FunctionTok{list}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{age\_group }\SpecialCharTok{+}\NormalTok{ sex, }\SpecialCharTok{\textasciitilde{}}\NormalTok{urban),}
+  \AttributeTok{population.margins =} \FunctionTok{list}\NormalTok{(}
+\NormalTok{    bg\_pop\_age\_sex }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(age\_group, sex, Freq),}
+\NormalTok{    pop\_urban }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(urban, Freq)}
+\NormalTok{  )}
+\NormalTok{)}
+\NormalTok{df\_clean}\SpecialCharTok{$}\NormalTok{weight }\OtherTok{\textless{}{-}} \FunctionTok{weights}\NormalTok{(raked, }\AttributeTok{type =} \StringTok{"analysis"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(df\_clean}\SpecialCharTok{$}\NormalTok{weight)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+## 0.0005404 0.0007716 0.0008479 0.0009862 0.0011252 0.0022930
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_clean}\SpecialCharTok{$}\NormalTok{weight\_ipw }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{/}\NormalTok{ raked}\SpecialCharTok{$}\NormalTok{prob}
+\FunctionTok{summary}\NormalTok{(df\_clean}\SpecialCharTok{$}\NormalTok{weight\_ipw)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+## 0.0005404 0.0007716 0.0008479 0.0009862 0.0011252 0.0022930
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_clean}\SpecialCharTok{$}\NormalTok{weight\_final }\OtherTok{\textless{}{-}}\NormalTok{ df\_clean}\SpecialCharTok{$}\NormalTok{weight }\SpecialCharTok{/} \FunctionTok{mean}\NormalTok{(df\_clean}\SpecialCharTok{$}\NormalTok{weight)}
+\FunctionTok{summary}\NormalTok{(df\_clean}\SpecialCharTok{$}\NormalTok{weight\_final)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.5479  0.7824  0.8597  1.0000  1.1410  2.3251
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Urban}
+\FunctionTok{svytable}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{urban, raked) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(}\FunctionTok{svytable}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{urban, raked))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## urban
+##  City Rural  Town 
+## 0.418 0.308 0.274
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Age × Sex}
+\FunctionTok{svytable}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{age\_group }\SpecialCharTok{+}\NormalTok{ sex, raked) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(}\FunctionTok{svytable}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{age\_group }\SpecialCharTok{+}\NormalTok{ sex, raked))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          sex
+## age_group       Male     Female
+##     18-24 0.03962400 0.03703774
+##     25-34 0.05897377 0.05556340
+##     35-44 0.08395509 0.07882107
+##     45-54 0.09437099 0.09069833
+##     55-64 0.08253685 0.08786643
+##     65+   0.11455996 0.17599238
+\end{verbatim}
+
+\#\#\#Финална база данни в теглен дизайн
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{design\_w }\OtherTok{\textless{}{-}} \FunctionTok{svydesign}\NormalTok{(}
+  \AttributeTok{ids =} \SpecialCharTok{\textasciitilde{}}\DecValTok{1}\NormalTok{,}
+  \AttributeTok{data =}\NormalTok{ df\_clean,}
+  \AttributeTok{weights =} \SpecialCharTok{\textasciitilde{}}\NormalTok{weight\_final}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Сега ще тестваме някакви неща:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{svymean}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{A2, design\_w, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      mean     SE
+## A2 2.0158 0.0249
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{svytable}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{sex, design\_w)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## sex
+##     Male   Female 
+## 480.6569 533.3431
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{svytable}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{urban, design\_w))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## urban
+##  City Rural  Town 
+## 0.418 0.308 0.274
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{svytable}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{urban }\SpecialCharTok{+}\NormalTok{ sex, design\_w), }\AttributeTok{margin =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        sex
+## urban        Male    Female
+##   City  0.4768661 0.5231339
+##   Rural 0.4598996 0.5401004
+##   Town  0.4855531 0.5144469
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{svyglm}\NormalTok{(A2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sex }\SpecialCharTok{+}\NormalTok{ age\_group }\SpecialCharTok{+}\NormalTok{ urban, }\AttributeTok{design =}\NormalTok{ design\_w))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svyglm(formula = A2 ~ sex + age_group + urban, design = design_w)
+## 
+## Survey design:
+## svydesign(ids = ~1, data = df_clean, weights = ~weight_final)
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)     1.960911   0.098239  19.961   <2e-16 ***
+## sexFemale      -0.091041   0.049580  -1.836   0.0666 .  
+## age_group25-34 -0.002933   0.113000  -0.026   0.9793    
+## age_group35-44  0.116924   0.106710   1.096   0.2735    
+## age_group45-54  0.012046   0.107010   0.113   0.9104    
+## age_group55-64  0.096845   0.102622   0.944   0.3456    
+## age_group65+    0.264397   0.104556   2.529   0.0116 *  
+## urbanRural     -0.007077   0.063850  -0.111   0.9118    
+## urbanTown      -0.036269   0.059601  -0.609   0.5430    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.550683)
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+\#Анализ
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{design\_w }\OtherTok{\textless{}{-}} \FunctionTok{update}\NormalTok{(}
+\NormalTok{  design\_w,}
+
+  \CommentTok{\# Administrative corruption perception}
+  \AttributeTok{admin\_corr\_index =} \FunctionTok{rowMeans}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(A2, A3A, A3B, A3C), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+
+  \CommentTok{\# Experienced administrative corruption}
+  \AttributeTok{experienced\_corr\_index =} \FunctionTok{rowMeans}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(A12A, A12B, A13A, A13B, A13C), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+
+  \CommentTok{\# Corruption tolerance / acceptability}
+  \AttributeTok{tolerance\_index =} \FunctionTok{rowMeans}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(A8, A9A, A9B, A9C, A9D, A10A, A10B, A10C, A10D), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{design\_w }\OtherTok{\textless{}{-}} \FunctionTok{update}\NormalTok{(}
+\NormalTok{  design\_w,}
+  \AttributeTok{admin\_corr\_z =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{scale}\NormalTok{(admin\_corr\_index)),}
+  \AttributeTok{experienced\_corr\_z =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{scale}\NormalTok{(experienced\_corr\_index)),}
+  \AttributeTok{tolerance\_z =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{scale}\NormalTok{(tolerance\_index))}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{svymean}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{admin\_corr\_index }\SpecialCharTok{+}\NormalTok{ experienced\_corr\_index }\SpecialCharTok{+}\NormalTok{ tolerance\_index, design\_w, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                          mean     SE
+## admin_corr_index       1.9652 0.0238
+## experienced_corr_index 4.7328 0.0779
+## tolerance_index        3.3319 0.0281
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{svyby}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{admin\_corr\_index, }\SpecialCharTok{\textasciitilde{}}\NormalTok{D7, design\_w, svymean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    D7 admin_corr_index         se
+## 1   1         2.239436 0.15554673
+## 2   2         2.031111 0.11854972
+## 3   3         1.928606 0.07893557
+## 4   4         2.206821 0.11598143
+## 5   5         1.727263 0.08419706
+## 6   6         1.919604 0.08282814
+## 7   7         1.985506 0.06861131
+## 8   8         1.766391 0.07068258
+## 9   9         1.767198 0.17250443
+## 10 10         1.823819 0.05389734
+## 11 11         2.063043 0.17451574
+## 12 12         1.601167 0.16558058
+## 13 13         2.067671 0.35082710
+## 14 14         2.045758 0.18126840
+## 15 15         2.112087 0.12912162
+## 16 16         2.122643 0.16344203
+## 17 17         2.099818 0.05481429
+## 18 18         1.812248 0.12393508
+## 19 19         1.521630 0.13770935
+## 20 20         1.759596 0.14323089
+## 21 21         1.807772 0.08047753
+## 22 22         1.750000 0.00000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{svyby}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{experienced\_corr\_index, }\SpecialCharTok{\textasciitilde{}}\NormalTok{D7, design\_w, svymean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    D7 experienced_corr_index        se
+## 1   1               3.841802 0.3456789
+## 2   2               3.730309 0.4284812
+## 3   3               4.086982 0.2514840
+## 4   4               4.436830 0.3717152
+## 5   5               3.916562 0.4214380
+## 6   6               4.317422 0.2816570
+## 7   7               4.591375 0.2060793
+## 8   8               4.603198 0.2680202
+## 9   9               5.161506 0.8584464
+## 10 10               4.285362 0.1916267
+## 11 11               4.655629 0.6247077
+## 12 12               3.045847 0.5099490
+## 13 13               3.548746 1.3215103
+## 14 14               4.852355 0.5723834
+## 15 15               5.167421 0.3830583
+## 16 16               5.099406 0.5656358
+## 17 17               5.679747 0.1623963
+## 18 18               4.356644 0.4831296
+## 19 19               3.138504 0.2178208
+## 20 20               4.242350 0.5682500
+## 21 21               4.218839 0.2937129
+## 22 22               4.569568 0.9104343
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{svyby}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{tolerance\_index, }\SpecialCharTok{\textasciitilde{}}\NormalTok{D7, design\_w, svymean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    D7 tolerance_index         se
+## 1   1        3.166976 0.21610168
+## 2   2        3.240781 0.15762187
+## 3   3        3.428662 0.11464872
+## 4   4        3.319821 0.14590204
+## 5   5        2.869271 0.16435811
+## 6   6        3.447717 0.11651624
+## 7   7        3.570444 0.06526716
+## 8   8        3.380502 0.09881132
+## 9   9        3.439746 0.25767805
+## 10 10        3.369262 0.06999999
+## 11 11        3.126665 0.26153602
+## 12 12        2.358222 0.25585271
+## 13 13        2.680777 0.62995418
+## 14 14        3.350033 0.18045796
+## 15 15        3.323135 0.13391748
+## 16 16        3.184873 0.21919194
+## 17 17        3.360103 0.05641872
+## 18 18        3.135951 0.19151375
+## 19 19        3.156247 0.36146238
+## 20 20        3.088472 0.21740419
+## 21 21        3.345075 0.12167827
+## 22 22        2.800443 0.93377876
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1 }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
+\NormalTok{  admin\_corr\_z }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(D7) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D1) }\SpecialCharTok{+}\NormalTok{ age\_group }\SpecialCharTok{+}
+    \FunctionTok{factor}\NormalTok{(D3) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D25B) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D26),}
+  \AttributeTok{design =}\NormalTok{ design\_w}
+\NormalTok{)}
+
+\NormalTok{m2 }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
+\NormalTok{  experienced\_corr\_z }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(D7) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D1) }\SpecialCharTok{+}\NormalTok{ age\_group }\SpecialCharTok{+}
+    \FunctionTok{factor}\NormalTok{(D3) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D25B) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D26),}
+  \AttributeTok{design =}\NormalTok{ design\_w}
+\NormalTok{)}
+
+\NormalTok{m3 }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
+\NormalTok{  tolerance\_z }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(D7) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D1) }\SpecialCharTok{+}\NormalTok{ age\_group }\SpecialCharTok{+}
+    \FunctionTok{factor}\NormalTok{(D3) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D25B) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(D26),}
+  \AttributeTok{design =}\NormalTok{ design\_w}
+\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svyglm(formula = admin_corr_z ~ factor(D7) + factor(D1) + age_group + 
+##     factor(D3) + factor(D25B) + factor(D26), design = design_w)
+## 
+## Survey design:
+## update(design_w, admin_corr_z = as.numeric(scale(admin_corr_index)), 
+##     experienced_corr_z = as.numeric(scale(experienced_corr_index)), 
+##     tolerance_z = as.numeric(scale(tolerance_index)))
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)     1.26465    0.48217   2.623  0.00889 **
+## factor(D7)2    -0.32797    0.30881  -1.062  0.28855   
+## factor(D7)3    -0.42499    0.27834  -1.527  0.12720   
+## factor(D7)4    -0.21040    0.31717  -0.663  0.50728   
+## factor(D7)5    -0.72722    0.30403  -2.392  0.01699 * 
+## factor(D7)6    -0.41883    0.26892  -1.557  0.11976   
+## factor(D7)7    -0.29542    0.26631  -1.109  0.26762   
+## factor(D7)8    -0.68584    0.26762  -2.563  0.01057 * 
+## factor(D7)9    -0.59148    0.36454  -1.623  0.10509   
+## factor(D7)10   -0.62680    0.25844  -2.425  0.01552 * 
+## factor(D7)11   -0.31942    0.37078  -0.861  0.38923   
+## factor(D7)12   -0.97476    0.41210  -2.365  0.01825 * 
+## factor(D7)13   -0.12440    0.81590  -0.152  0.87886   
+## factor(D7)14   -0.56596    0.40632  -1.393  0.16404   
+## factor(D7)15   -0.12929    0.33123  -0.390  0.69639   
+## factor(D7)16   -0.24604    0.32992  -0.746  0.45604   
+## factor(D7)17   -0.87903    0.27507  -3.196  0.00145 **
+## factor(D7)18   -0.86664    0.41757  -2.075  0.03827 * 
+## factor(D7)19   -0.91944    0.36988  -2.486  0.01313 * 
+## factor(D7)20   -0.50783    0.36322  -1.398  0.16247   
+## factor(D7)21   -0.62581    0.28376  -2.205  0.02771 * 
+## factor(D7)22   -0.55300    0.27453  -2.014  0.04431 * 
+## factor(D1)2    -0.10229    0.07409  -1.381  0.16778   
+## age_group25-34  0.14408    0.21901   0.658  0.51082   
+## age_group35-44  0.08908    0.21164   0.421  0.67395   
+## age_group45-54  0.05064    0.21043   0.241  0.80988   
+## age_group55-64  0.16395    0.20343   0.806  0.42053   
+## age_group65+    0.71777    0.22529   3.186  0.00150 **
+## factor(D3)3     0.22330    0.41422   0.539  0.58997   
+## factor(D3)4    -0.57786    0.21280  -2.715  0.00676 **
+## factor(D3)5    -0.76173    0.25898  -2.941  0.00336 **
+## factor(D3)6    -0.53754    0.21979  -2.446  0.01468 * 
+## factor(D3)7    -0.43284    0.19759  -2.191  0.02877 * 
+## factor(D3)8    -0.25447    0.27834  -0.914  0.36087   
+## factor(D25B)3  -0.52973    0.40410  -1.311  0.19028   
+## factor(D25B)4  -0.18128    0.43610  -0.416  0.67776   
+## factor(D25B)5  -0.42965    0.39316  -1.093  0.27482   
+## factor(D25B)6  -0.10792    0.40954  -0.264  0.79221   
+## factor(D25B)7  -0.58138    0.38549  -1.508  0.13191   
+## factor(D25B)8  -0.50890    0.37947  -1.341  0.18029   
+## factor(D25B)9  -0.42834    0.40390  -1.060  0.28925   
+## factor(D25B)10 -0.80240    0.36254  -2.213  0.02716 * 
+## factor(D25B)11 -0.40817    0.37474  -1.089  0.27639   
+## factor(D25B)12 -0.45748    0.37872  -1.208  0.22742   
+## factor(D25B)13 -0.54237    0.36362  -1.492  0.13620   
+## factor(D26)2    0.04199    0.09511   0.441  0.65900   
+## factor(D26)3    0.21570    0.11013   1.959  0.05052 . 
+## factor(D26)4    0.25342    0.11810   2.146  0.03220 * 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.9532234)
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(m2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svyglm(formula = experienced_corr_z ~ factor(D7) + factor(D1) + 
+##     age_group + factor(D3) + factor(D25B) + factor(D26), design = design_w)
+## 
+## Survey design:
+## update(design_w, admin_corr_z = as.numeric(scale(admin_corr_index)), 
+##     experienced_corr_z = as.numeric(scale(experienced_corr_index)), 
+##     tolerance_z = as.numeric(scale(tolerance_index)))
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)    -0.790973   0.864463  -0.915  0.36048   
+## factor(D7)2    -0.070547   0.238351  -0.296  0.76732   
+## factor(D7)3    -0.073681   0.206594  -0.357  0.72145   
+## factor(D7)4     0.103733   0.250380   0.414  0.67877   
+## factor(D7)5    -0.383778   0.246106  -1.559  0.11930   
+## factor(D7)6     0.166342   0.218841   0.760  0.44742   
+## factor(D7)7     0.347750   0.194615   1.787  0.07434 . 
+## factor(D7)8     0.269995   0.216338   1.248  0.21239   
+## factor(D7)9     0.479898   0.450278   1.066  0.28685   
+## factor(D7)10    0.191982   0.194850   0.985  0.32479   
+## factor(D7)11    0.259324   0.321123   0.808  0.41959   
+## factor(D7)12   -0.657349   0.265401  -2.477  0.01346 * 
+## factor(D7)13    0.009003   0.633059   0.014  0.98866   
+## factor(D7)14    0.365642   0.369866   0.989  0.32317   
+## factor(D7)15    0.529655   0.244906   2.163  0.03086 * 
+## factor(D7)16    0.527353   0.325925   1.618  0.10606   
+## factor(D7)17    0.291157   0.229038   1.271  0.20403   
+## factor(D7)18    0.016905   0.382052   0.044  0.96472   
+## factor(D7)19   -0.258259   0.223139  -1.157  0.24746   
+## factor(D7)20   -0.073346   0.327772  -0.224  0.82299   
+## factor(D7)21    0.064356   0.231154   0.278  0.78077   
+## factor(D7)22    0.187154   0.458676   0.408  0.68336   
+## factor(D1)2     0.140623   0.071184   1.975  0.04856 * 
+## age_group25-34  0.139990   0.196561   0.712  0.47655   
+## age_group35-44 -0.072016   0.188207  -0.383  0.70209   
+## age_group45-54  0.066970   0.190929   0.351  0.72586   
+## age_group55-64  0.092560   0.191012   0.485  0.62811   
+## age_group65+    0.503458   0.227450   2.213  0.02715 * 
+## factor(D3)3     0.937063   0.293450   3.193  0.00146 **
+## factor(D3)4     0.563732   0.188992   2.983  0.00294 **
+## factor(D3)5     0.515409   0.235133   2.192  0.02867 * 
+## factor(D3)6     0.597765   0.200724   2.978  0.00299 **
+## factor(D3)7     0.579755   0.183441   3.160  0.00164 **
+## factor(D3)8     0.322137   0.258516   1.246  0.21310   
+## factor(D25B)3   0.070933   0.864575   0.082  0.93463   
+## factor(D25B)4   0.020691   0.844422   0.025  0.98046   
+## factor(D25B)5  -0.516457   0.848375  -0.609  0.54286   
+## factor(D25B)6  -0.129238   0.844524  -0.153  0.87841   
+## factor(D25B)7  -0.329042   0.833216  -0.395  0.69302   
+## factor(D25B)8  -0.302268   0.842362  -0.359  0.71981   
+## factor(D25B)9  -0.152063   0.843514  -0.180  0.85698   
+## factor(D25B)10 -0.475209   0.828817  -0.573  0.56657   
+## factor(D25B)11 -0.106147   0.829951  -0.128  0.89826   
+## factor(D25B)12 -0.029192   0.830714  -0.035  0.97198   
+## factor(D25B)13 -0.360538   0.824969  -0.437  0.66221   
+## factor(D26)2    0.044109   0.087423   0.505  0.61402   
+## factor(D26)3    0.044386   0.111633   0.398  0.69103   
+## factor(D26)4    0.210097   0.112416   1.869  0.06200 . 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.8792582)
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(m3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svyglm(formula = tolerance_z ~ factor(D7) + factor(D1) + age_group + 
+##     factor(D3) + factor(D25B) + factor(D26), design = design_w)
+## 
+## Survey design:
+## update(design_w, admin_corr_z = as.numeric(scale(admin_corr_index)), 
+##     experienced_corr_z = as.numeric(scale(experienced_corr_index)), 
+##     tolerance_z = as.numeric(scale(tolerance_index)))
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)    -1.86852    0.83913  -2.227  0.02625 *  
+## factor(D7)2     0.12380    0.31013   0.399  0.68985    
+## factor(D7)3     0.12506    0.28434   0.440  0.66019    
+## factor(D7)4    -0.05964    0.31292  -0.191  0.84889    
+## factor(D7)5    -0.42164    0.34125  -1.236  0.21699    
+## factor(D7)6     0.38499    0.28041   1.373  0.17015    
+## factor(D7)7     0.52604    0.25075   2.098  0.03624 *  
+## factor(D7)8     0.40585    0.27532   1.474  0.14085    
+## factor(D7)9     0.37430    0.41111   0.910  0.36286    
+## factor(D7)10    0.42570    0.25441   1.673  0.09467 .  
+## factor(D7)11    0.25675    0.38456   0.668  0.50455    
+## factor(D7)12   -0.73138    0.38957  -1.877  0.06083 .  
+## factor(D7)13    0.12605    0.78592   0.160  0.87262    
+## factor(D7)14    0.09163    0.33034   0.277  0.78157    
+## factor(D7)15    0.38919    0.30380   1.281  0.20054    
+## factor(D7)16    0.31387    0.34277   0.916  0.36011    
+## factor(D7)17    0.30307    0.29869   1.015  0.31057    
+## factor(D7)18   -0.40802    0.36674  -1.113  0.26623    
+## factor(D7)19    0.26592    0.46711   0.569  0.56932    
+## factor(D7)20    0.24849    0.34727   0.716  0.47448    
+## factor(D7)21    0.39528    0.29107   1.358  0.17484    
+## factor(D7)22   -0.15024    1.19168  -0.126  0.89970    
+## factor(D1)2     0.07858    0.07215   1.089  0.27643    
+## age_group25-34 -0.03378    0.20537  -0.164  0.86939    
+## age_group35-44 -0.07913    0.20044  -0.395  0.69312    
+## age_group45-54 -0.13475    0.19558  -0.689  0.49104    
+## age_group55-64 -0.06653    0.20451  -0.325  0.74501    
+## age_group65+    0.02719    0.26470   0.103  0.91821    
+## factor(D3)3     1.78866    0.22175   8.066 2.69e-15 ***
+## factor(D3)4     1.09384    0.16756   6.528 1.19e-10 ***
+## factor(D3)5     0.75268    0.24134   3.119  0.00188 ** 
+## factor(D3)6     1.09959    0.17499   6.284 5.46e-10 ***
+## factor(D3)7     1.36066    0.15823   8.599  < 2e-16 ***
+## factor(D3)8     1.44901    0.24547   5.903 5.30e-09 ***
+## factor(D25B)3   1.06921    0.86010   1.243  0.21419    
+## factor(D25B)4   0.52908    0.83579   0.633  0.52690    
+## factor(D25B)5   0.31453    0.81549   0.386  0.69983    
+## factor(D25B)6   0.67498    0.82474   0.818  0.41337    
+## factor(D25B)7   0.87423    0.80390   1.087  0.27716    
+## factor(D25B)8   0.39016    0.81257   0.480  0.63125    
+## factor(D25B)9   0.31875    0.81569   0.391  0.69607    
+## factor(D25B)10  0.47389    0.80110   0.592  0.55432    
+## factor(D25B)11  0.62062    0.80178   0.774  0.43913    
+## factor(D25B)12  0.65765    0.80347   0.819  0.41331    
+## factor(D25B)13  0.65699    0.79778   0.824  0.41046    
+## factor(D26)2   -0.14829    0.08922  -1.662  0.09690 .  
+## factor(D26)3   -0.35132    0.11276  -3.116  0.00190 ** 
+## factor(D26)4   -0.29900    0.11446  -2.612  0.00917 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.9155215)
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(broom)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(forcats)}
+
+\CommentTok{\# {-}{-}{-}{-} 1. D7 label map {-}{-}{-}{-}}
+\NormalTok{d7\_labels }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \StringTok{"1"}  \OtherTok{=} \StringTok{"Responsible state officials"}\NormalTok{,}
+  \StringTok{"2"}  \OtherTok{=} \StringTok{"Directors of companies and administrative institutions"}\NormalTok{,}
+  \StringTok{"3"}  \OtherTok{=} \StringTok{"Humanitarian, economic professionals and freelance occupations"}\NormalTok{,}
+  \StringTok{"4"}  \OtherTok{=} \StringTok{"Specialists with mathematical, technical and natural{-}science education"}\NormalTok{,}
+  \StringTok{"5"}  \OtherTok{=} \StringTok{"Middle ranking technicians"}\NormalTok{,}
+  \StringTok{"6"}  \OtherTok{=} \StringTok{"Administrative officials and middle ranking specialists"}\NormalTok{,}
+  \StringTok{"7"}  \OtherTok{=} \StringTok{"Office personnel"}\NormalTok{,}
+  \StringTok{"8"}  \OtherTok{=} \StringTok{"Trade and service employees"}\NormalTok{,}
+  \StringTok{"9"}  \OtherTok{=} \StringTok{"Low ranking managers"}\NormalTok{,}
+  \StringTok{"10"} \OtherTok{=} \StringTok{"Skilled workers"}\NormalTok{,}
+  \StringTok{"11"} \OtherTok{=} \StringTok{"Unskilled workers"}\NormalTok{,}
+  \StringTok{"12"} \OtherTok{=} \StringTok{"Unskilled workers in trade and services"}\NormalTok{,}
+  \StringTok{"13"} \OtherTok{=} \StringTok{"Hired workers in agriculture, forestry and fishing"}\NormalTok{,}
+  \StringTok{"14"} \OtherTok{=} \StringTok{"Farmers and fishermen"}\NormalTok{,}
+  \StringTok{"15"} \OtherTok{=} \StringTok{"Entrepreneurs and businessman"}\NormalTok{,}
+  \StringTok{"16"} \OtherTok{=} \StringTok{"Other employed"}\NormalTok{,}
+  \StringTok{"17"} \OtherTok{=} \StringTok{"Pensioners"}\NormalTok{,}
+  \StringTok{"18"} \OtherTok{=} \StringTok{"Students"}\NormalTok{,}
+  \StringTok{"19"} \OtherTok{=} \StringTok{"Disabled"}\NormalTok{,}
+  \StringTok{"20"} \OtherTok{=} \StringTok{"Housewives / maternity leave"}\NormalTok{,}
+  \StringTok{"21"} \OtherTok{=} \StringTok{"Unemployed"}\NormalTok{,}
+  \StringTok{"22"} \OtherTok{=} \StringTok{"Other not working"}
+\NormalTok{)}
+
+\CommentTok{\# {-}{-}{-}{-} 2. Helper function to extract and clean D7 coefficients {-}{-}{-}{-}}
+\NormalTok{extract\_d7 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(model, model\_name) \{}
+\NormalTok{  broom}\SpecialCharTok{::}\FunctionTok{tidy}\NormalTok{(model, }\AttributeTok{conf.int =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(}\FunctionTok{str\_detect}\NormalTok{(term, }\StringTok{"\^{}factor}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{(D7}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{)"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}
+      \AttributeTok{d7\_code =} \FunctionTok{str\_remove}\NormalTok{(term, }\StringTok{"\^{}factor}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{(D7}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{)"}\NormalTok{),}
+      \AttributeTok{group =}\NormalTok{ d7\_labels[d7\_code],}
+      \AttributeTok{group =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(group), d7\_code, group),}
+      \AttributeTok{group =} \FunctionTok{str\_wrap}\NormalTok{(group, }\AttributeTok{width =} \DecValTok{35}\NormalTok{),}
+      \AttributeTok{model =}\NormalTok{ model\_name}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{arrange}\NormalTok{(estimate) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{group =} \FunctionTok{factor}\NormalTok{(group, }\AttributeTok{levels =}\NormalTok{ group))}
+\NormalTok{\}}
+
+\CommentTok{\# {-}{-}{-}{-} 3. Build separate datasets {-}{-}{-}{-}}
+\NormalTok{plot\_m1 }\OtherTok{\textless{}{-}} \FunctionTok{extract\_d7}\NormalTok{(m1, }\StringTok{"Perceived administrative corruption"}\NormalTok{)}
+\NormalTok{plot\_m2 }\OtherTok{\textless{}{-}} \FunctionTok{extract\_d7}\NormalTok{(m2, }\StringTok{"Experienced administrative corruption"}\NormalTok{)}
+\NormalTok{plot\_m3 }\OtherTok{\textless{}{-}} \FunctionTok{extract\_d7}\NormalTok{(m3, }\StringTok{"Tolerance of corruption"}\NormalTok{)}
+
+\CommentTok{\# {-}{-}{-}{-} 4. Plot function {-}{-}{-}{-}}
+\NormalTok{plot\_d7\_model }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(df, title\_text, }\AttributeTok{subtitle\_text =} \ConstantTok{NULL}\NormalTok{) \{}
+  \FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ estimate, }\AttributeTok{y =}\NormalTok{ group)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey40"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_errorbarh}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =}\NormalTok{ conf.low, }\AttributeTok{xmax =}\NormalTok{ conf.high), }\AttributeTok{height =} \FloatTok{0.15}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \FloatTok{2.4}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}
+      \AttributeTok{title =}\NormalTok{ title\_text,}
+      \AttributeTok{subtitle =}\NormalTok{ subtitle\_text,}
+      \AttributeTok{x =} \StringTok{"Difference in standard deviations relative to reference group"}\NormalTok{,}
+      \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
+      \AttributeTok{caption =} \StringTok{"Points show regression coefficients for social groups (D7); lines show 95\% confidence intervals.}\SpecialCharTok{\textbackslash{}n}\StringTok{Controls: sex, age group, education, income group, settlement type. Weighted survey estimates."}
+\NormalTok{    ) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{12}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}
+      \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{(),}
+      \AttributeTok{panel.grid.major.y =} \FunctionTok{element\_blank}\NormalTok{(),}
+      \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{),}
+      \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+      \AttributeTok{plot.caption =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{9}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{\}}
+
+\CommentTok{\# {-}{-}{-}{-} 5. Draw the three graphs {-}{-}{-}{-}}
+\NormalTok{g1 }\OtherTok{\textless{}{-}} \FunctionTok{plot\_d7\_model}\NormalTok{(}
+\NormalTok{  plot\_m1,}
+  \StringTok{"Perceived administrative corruption by social group"}\NormalTok{,}
+  \StringTok{"Ordered from lowest to highest estimated score"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: `geom_errorbarh()` was deprecated in ggplot2 4.0.0.
+## i Please use the `orientation` argument of `geom_errorbar()` instead.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g2 }\OtherTok{\textless{}{-}} \FunctionTok{plot\_d7\_model}\NormalTok{(}
+\NormalTok{  plot\_m2,}
+  \StringTok{"Experienced administrative corruption by social group"}\NormalTok{,}
+  \StringTok{"Ordered from lowest to highest estimated score"}
+\NormalTok{)}
+
+\NormalTok{g3 }\OtherTok{\textless{}{-}} \FunctionTok{plot\_d7\_model}\NormalTok{(}
+\NormalTok{  plot\_m3,}
+  \StringTok{"Tolerance of corruption by social group"}\NormalTok{,}
+  \StringTok{"Ordered from lowest to highest estimated score"}
+\NormalTok{)}
+
+\NormalTok{g1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `height` was translated to `width`.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{CMS_CAR_DOCUMENTATION_files/figure-latex/unnamed-chunk-23-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `height` was translated to `width`.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{CMS_CAR_DOCUMENTATION_files/figure-latex/unnamed-chunk-23-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `height` was translated to `width`.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{CMS_CAR_DOCUMENTATION_files/figure-latex/unnamed-chunk-23-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(df\_clean[, }\FunctionTok{c}\NormalTok{(}\StringTok{"A2"}\NormalTok{,}\StringTok{"A3A"}\NormalTok{,}\StringTok{"A3B"}\NormalTok{,}\StringTok{"A3C"}\NormalTok{,}\StringTok{"A12A"}\NormalTok{,}\StringTok{"A12B"}\NormalTok{,}\StringTok{"A13A"}\NormalTok{,}\StringTok{"A13B"}\NormalTok{,}\StringTok{"A13C"}\NormalTok{,}\StringTok{"A8"}\NormalTok{,}\StringTok{"A9A"}\NormalTok{,}\StringTok{"A9B"}\NormalTok{,}\StringTok{"A9C"}\NormalTok{,}\StringTok{"A9D"}\NormalTok{,}\StringTok{"A10A"}\NormalTok{,}\StringTok{"A10B"}\NormalTok{,}\StringTok{"A10C"}\NormalTok{,}\StringTok{"A10D"}\NormalTok{)])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        A2             A3A             A3B             A3C       
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000  
+##  Median :2.000   Median :2.000   Median :2.000   Median :2.000  
+##  Mean   :2.011   Mean   :1.945   Mean   :1.876   Mean   :1.911  
+##  3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:2.000  
+##  Max.   :4.000   Max.   :4.000   Max.   :4.000   Max.   :4.000  
+##  NA's   :38      NA's   :29      NA's   :25      NA's   :35     
+##       A12A            A12B           A13A            A13B            A13C      
+##  Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.00   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :4.000   Median :4.00   Median :4.000   Median :4.000   Median :4.000  
+##  Mean   :4.662   Mean   :4.46   Mean   :3.457   Mean   :3.303   Mean   :3.374  
+##  3rd Qu.:8.000   3rd Qu.:8.00   3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:4.000  
+##  Max.   :9.000   Max.   :9.00   Max.   :9.000   Max.   :9.000   Max.   :9.000  
+##                                 NA's   :287     NA's   :287     NA's   :287    
+##        A8             A9A             A9B             A9C       
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :3.000   Median :4.000   Median :4.000   Median :4.000  
+##  Mean   :3.122   Mean   :3.321   Mean   :3.376   Mean   :3.382  
+##  3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:4.000  
+##  Max.   :4.000   Max.   :4.000   Max.   :4.000   Max.   :4.000  
+##  NA's   :22      NA's   :18      NA's   :19      NA's   :20     
+##       A9D             A10A            A10B            A10C      
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:3.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :4.000   Median :4.000   Median :4.000   Median :4.000  
+##  Mean   :3.534   Mean   :3.219   Mean   :3.301   Mean   :3.303  
+##  3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:4.000  
+##  Max.   :4.000   Max.   :4.000   Max.   :4.000   Max.   :4.000  
+##  NA's   :14      NA's   :22      NA's   :21      NA's   :18     
+##       A10D      
+##  Min.   :1.000  
+##  1st Qu.:3.000  
+##  Median :4.000  
+##  Mean   :3.503  
+##  3rd Qu.:4.000  
+##  Max.   :4.000  
+##  NA's   :17
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_clean }\OtherTok{\textless{}{-}}\NormalTok{ df\_clean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{D7\_compact =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      D7 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{9}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Public{-}sector / administrative elite"}\NormalTok{,}
+\NormalTok{      D7 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Professionals / specialists"}\NormalTok{,}
+\NormalTok{      D7 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Clerical / service employees"}\NormalTok{,}
+\NormalTok{      D7 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{13}\NormalTok{, }\DecValTok{14}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Workers"}\NormalTok{,}
+\NormalTok{      D7 }\SpecialCharTok{==} \DecValTok{15} \SpecialCharTok{\textasciitilde{}} \StringTok{"Entrepreneurs"}\NormalTok{,}
+\NormalTok{      D7 }\SpecialCharTok{==} \DecValTok{17} \SpecialCharTok{\textasciitilde{}} \StringTok{"Pensioners"}\NormalTok{,}
+\NormalTok{      D7 }\SpecialCharTok{==} \DecValTok{18} \SpecialCharTok{\textasciitilde{}} \StringTok{"Students"}\NormalTok{,}
+\NormalTok{      D7 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{16}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{21}\NormalTok{, }\DecValTok{22}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}working / vulnerable"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{D7\_compact =} \FunctionTok{factor}\NormalTok{(}
+\NormalTok{      D7\_compact,}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}
+        \StringTok{"Public{-}sector / administrative elite"}\NormalTok{,}
+        \StringTok{"Professionals / specialists"}\NormalTok{,}
+        \StringTok{"Clerical / service employees"}\NormalTok{,}
+        \StringTok{"Workers"}\NormalTok{,}
+        \StringTok{"Entrepreneurs"}\NormalTok{,}
+        \StringTok{"Pensioners"}\NormalTok{,}
+        \StringTok{"Students"}\NormalTok{,}
+        \StringTok{"Non{-}working / vulnerable"}
+\NormalTok{      )}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\NormalTok{df\_clean }\OtherTok{\textless{}{-}}\NormalTok{ df\_clean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{admin\_corr\_index =} \FunctionTok{rowMeans}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(A2, A3A, A3B, A3C), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{experienced\_corr\_index =} \FunctionTok{rowMeans}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(A12A, A12B, A13A, A13B, A13C), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{tolerance\_index =} \FunctionTok{rowMeans}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(A8, A9A, A9B, A9C, A9D, A10A, A10B, A10C, A10D), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+
+    \AttributeTok{admin\_corr\_z =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{scale}\NormalTok{(admin\_corr\_index)),}
+    \AttributeTok{experienced\_corr\_z =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{scale}\NormalTok{(experienced\_corr\_index)),}
+    \AttributeTok{tolerance\_z =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{scale}\NormalTok{(tolerance\_index))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{design\_w }\OtherTok{\textless{}{-}} \FunctionTok{svydesign}\NormalTok{(}
+  \AttributeTok{ids =} \SpecialCharTok{\textasciitilde{}}\DecValTok{1}\NormalTok{,}
+  \AttributeTok{data =}\NormalTok{ df\_clean,}
+  \AttributeTok{weights =} \SpecialCharTok{\textasciitilde{}}\NormalTok{weight\_final}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1c }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
+\NormalTok{  admin\_corr\_z }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(D7\_compact),}
+  \AttributeTok{design =}\NormalTok{ design\_w}
+\NormalTok{)}
+
+\NormalTok{m2c }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
+\NormalTok{  experienced\_corr\_z }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(D7\_compact),}
+  \AttributeTok{design =}\NormalTok{ design\_w}
+\NormalTok{)}
+
+\NormalTok{m3c }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
+\NormalTok{  tolerance\_z }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(D7\_compact),}
+  \AttributeTok{design =}\NormalTok{ design\_w}
+\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(m1c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svyglm(formula = admin_corr_z ~ factor(D7_compact), design = design_w)
+## 
+## Survey design:
+## svydesign(ids = ~1, data = df_clean, weights = ~weight_final)
+## 
+## Coefficients:
+##                                                Estimate Std. Error t value
+## (Intercept)                                     0.08425    0.09286   0.907
+## factor(D7_compact)Professionals / specialists  -0.06343    0.12426  -0.510
+## factor(D7_compact)Clerical / service employees -0.17319    0.11834  -1.463
+## factor(D7_compact)Workers                      -0.21510    0.11700  -1.838
+## factor(D7_compact)Entrepreneurs                 0.15691    0.21005   0.747
+## factor(D7_compact)Pensioners                    0.13901    0.12256   1.134
+## factor(D7_compact)Students                     -0.28061    0.20329  -1.380
+## factor(D7_compact)Non-working / vulnerable     -0.25217    0.13074  -1.929
+##                                                Pr(>|t|)  
+## (Intercept)                                      0.3645  
+## factor(D7_compact)Professionals / specialists    0.6098  
+## factor(D7_compact)Clerical / service employees   0.1437  
+## factor(D7_compact)Workers                        0.0663 .
+## factor(D7_compact)Entrepreneurs                  0.4552  
+## factor(D7_compact)Pensioners                     0.2570  
+## factor(D7_compact)Students                       0.1678  
+## factor(D7_compact)Non-working / vulnerable       0.0540 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.02008)
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(m2c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svyglm(formula = experienced_corr_z ~ factor(D7_compact), design = design_w)
+## 
+## Survey design:
+## svydesign(ids = ~1, data = df_clean, weights = ~weight_final)
+## 
+## Coefficients:
+##                                                Estimate Std. Error t value
+## (Intercept)                                    -0.20580    0.08710  -2.363
+## factor(D7_compact)Professionals / specialists  -0.01072    0.12061  -0.089
+## factor(D7_compact)Clerical / service employees  0.18850    0.11392   1.655
+## factor(D7_compact)Workers                       0.04253    0.11496   0.370
+## factor(D7_compact)Entrepreneurs                 0.44092    0.19052   2.314
+## factor(D7_compact)Pensioners                    0.66755    0.11290   5.913
+## factor(D7_compact)Students                      0.08227    0.23078   0.356
+## factor(D7_compact)Non-working / vulnerable      0.05930    0.13128   0.452
+##                                                Pr(>|t|)    
+## (Intercept)                                      0.0183 *  
+## factor(D7_compact)Professionals / specialists    0.9292    
+## factor(D7_compact)Clerical / service employees   0.0983 .  
+## factor(D7_compact)Workers                        0.7115    
+## factor(D7_compact)Entrepreneurs                  0.0209 *  
+## factor(D7_compact)Pensioners                    4.6e-09 ***
+## factor(D7_compact)Students                       0.7215    
+## factor(D7_compact)Non-working / vulnerable       0.6515    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.9680195)
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(m3c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svyglm(formula = tolerance_z ~ factor(D7_compact), design = design_w)
+## 
+## Survey design:
+## svydesign(ids = ~1, data = df_clean, weights = ~weight_final)
+## 
+## Coefficients:
+##                                                 Estimate Std. Error t value
+## (Intercept)                                    -0.001855   0.104468  -0.018
+## factor(D7_compact)Professionals / specialists  -0.087898   0.142823  -0.615
+## factor(D7_compact)Clerical / service employees  0.167010   0.125306   1.333
+## factor(D7_compact)Workers                      -0.112989   0.132191  -0.855
+## factor(D7_compact)Entrepreneurs                -0.024744   0.191322  -0.129
+## factor(D7_compact)Pensioners                    0.019502   0.124392   0.157
+## factor(D7_compact)Students                     -0.248780   0.251902  -0.988
+## factor(D7_compact)Non-working / vulnerable     -0.114632   0.153074  -0.749
+##                                                Pr(>|t|)
+## (Intercept)                                       0.986
+## factor(D7_compact)Professionals / specialists     0.538
+## factor(D7_compact)Clerical / service employees    0.183
+## factor(D7_compact)Workers                         0.393
+## factor(D7_compact)Entrepreneurs                   0.897
+## factor(D7_compact)Pensioners                      0.875
+## factor(D7_compact)Students                        0.324
+## factor(D7_compact)Non-working / vulnerable        0.454
+## 
+## (Dispersion parameter for gaussian family taken to be 1.013309)
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(survey)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\NormalTok{means\_df }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(}
+
+  \FunctionTok{svyby}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{admin\_corr\_z, }\SpecialCharTok{\textasciitilde{}}\NormalTok{D7\_compact, design\_w, svymean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{model =} \StringTok{"Perceived corruption"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{rename}\NormalTok{(}\AttributeTok{mean =}\NormalTok{ admin\_corr\_z),}
+
+  \FunctionTok{svyby}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{experienced\_corr\_z, }\SpecialCharTok{\textasciitilde{}}\NormalTok{D7\_compact, design\_w, svymean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{model =} \StringTok{"Experienced corruption"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{rename}\NormalTok{(}\AttributeTok{mean =}\NormalTok{ experienced\_corr\_z),}
+
+  \FunctionTok{svyby}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{tolerance\_z, }\SpecialCharTok{\textasciitilde{}}\NormalTok{D7\_compact, design\_w, svymean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{model =} \StringTok{"Tolerance of corruption"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{rename}\NormalTok{(}\AttributeTok{mean =}\NormalTok{ tolerance\_z)}
+
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(forcats)}
+
+\NormalTok{plot\_means }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(df, title\_text) \{}
+
+\NormalTok{  df }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{arrange}\NormalTok{(mean) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{D7\_compact =} \FunctionTok{fct\_reorder}\NormalTok{(D7\_compact, mean)) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ mean, }\AttributeTok{y =}\NormalTok{ D7\_compact)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey50"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}
+      \AttributeTok{title =}\NormalTok{ title\_text,}
+      \AttributeTok{x =} \StringTok{"Standardized index (z{-}score)"}\NormalTok{,}
+      \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
+      \AttributeTok{caption =} \StringTok{"Weighted survey means. Values above zero indicate higher{-}than{-}average levels."}
+\NormalTok{    ) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{12}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}
+      \AttributeTok{panel.grid.major.y =} \FunctionTok{element\_blank}\NormalTok{(),}
+      \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g1 }\OtherTok{\textless{}{-}} \FunctionTok{plot\_means}\NormalTok{(}
+  \FunctionTok{filter}\NormalTok{(means\_df, model }\SpecialCharTok{==} \StringTok{"Perceived corruption"}\NormalTok{),}
+  \StringTok{"Perceived administrative corruption by social group"}
+\NormalTok{)}
+
+\NormalTok{g2 }\OtherTok{\textless{}{-}} \FunctionTok{plot\_means}\NormalTok{(}
+  \FunctionTok{filter}\NormalTok{(means\_df, model }\SpecialCharTok{==} \StringTok{"Experienced corruption"}\NormalTok{),}
+  \StringTok{"Experienced corruption by social group"}
+\NormalTok{)}
+
+\NormalTok{g3 }\OtherTok{\textless{}{-}} \FunctionTok{plot\_means}\NormalTok{(}
+  \FunctionTok{filter}\NormalTok{(means\_df, model }\SpecialCharTok{==} \StringTok{"Tolerance of corruption"}\NormalTok{),}
+  \StringTok{"Tolerance of corruption by social group"}
+\NormalTok{)}
+
+\NormalTok{g1}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{CMS_CAR_DOCUMENTATION_files/figure-latex/unnamed-chunk-30-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g2}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{CMS_CAR_DOCUMENTATION_files/figure-latex/unnamed-chunk-30-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g3}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{CMS_CAR_DOCUMENTATION_files/figure-latex/unnamed-chunk-30-3.pdf}}
+
+\end{document}
