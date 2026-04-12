@@ -203,7 +203,7 @@ svytable(~urban, raked) / sum(svytable(~urban, raked))
 svytable(~age_group + sex, raked) / sum(svytable(~age_group + sex, raked))
 ```
 
-###Финална база данни в теглен дизайн
+### final database with weighted design
 
 ```{r}
 design_w <- svydesign(
@@ -213,7 +213,7 @@ design_w <- svydesign(
 )
 ```
 
-Сега ще тестваме някакви неща:
+Now we can test some things:
 
 ```{r}
 svymean(~A2, design_w, na.rm = TRUE)
@@ -428,8 +428,6 @@ $$
 procurement\_concentration = \frac{e1\_proc\_{01} + sc4\_{01}}{2}
 $$
 
-This aggregation captures both the procedural manipulation of procurement (conditions tailored to specific firms) and the broader outcome of resource capture (allocation benefiting small groups).
-
 ```{r}
 
 design_w <- update(
@@ -546,7 +544,7 @@ where A4_elite represents the average perception of corruption among top-level p
 **E3 = (j_impunity_01 + a4_elite_01) / 2**
 
 ```{r}
-# E3: Impunity Track Record
+
 
 design_w <- update(
   design_w,
