@@ -7,7 +7,7 @@ output:
   pdf_document: default
 ---
 
-## Database preparation 
+## Database preparation
 
 The first step is to prepare the database and clean it
 
@@ -191,7 +191,7 @@ summary(df_clean$weight_ipw)
 ```{r}
 df_clean$weight_final <- df_clean$weight / mean(df_clean$weight)
 summary(df_clean$weight_final)
-write_sav(df_clean, "weighted_df.sav")
+
 
 ```
 
@@ -240,7 +240,7 @@ summary(svyglm(A2 ~ sex + age_group + urban, design = design_w))
 | **L2: RIA Manipulation** | Use of formalistic or fake evidence to justify laws. | **L_PROC (Item 2):** Formalism of impact assessments. **L_PROC (Item 3):** Direct authorship by lobbyists. |
 | **L3: Transparency Resistance** | Refusal to regulate lobbying and executive conflicts. | **L_LOBBY:** Deliberate avoidance of lobbying regulations. **A9/A10:** Social acceptability of favors for MPs/Ministers. |
 
-## Consultancy exclusion
+## **Consultancy exclusion**
 
 Since **Consultation Exclusion** is constructed from `L_PROC_A` and `SC5`, and one variable is ordinal while the other is categorical, the two indicators must be normalized to make them comparable in scale.
 
@@ -303,7 +303,7 @@ The results indicate a **systematically high level of consultation exclusion** i
 
 -   Public interest is rarely the primary driver of decisions, with non-public actors, particularly business and political interests, are seen as dominant.
 
-## **RIA Manipulation** 
+## **RIA Manipulation**
 
 ```{r}
 design_w <- update(
@@ -401,4 +401,189 @@ fa <- factanal(
 )
 
 fa
+```
+
+## Executive Dimension
+
+| SCI Indicator | Theoretical Mechanism | Survey Question(s) |
+|-------------------|-------------------|----------------------------------|
+| **E1: Procurement Concentration** | Rigging tenders to favor specific political-business circles. | **E_PART (Item 2):** Conditions written for specific firms. **SC4:** Management of public resources for small groups. |
+| **E2: Admin. Particularism** | Selective and punitive application of state audits or permits. | **E_PART (Item 1):** Targeted audits to punish rivals. **E_PART (Item 3):** Bureaucratic bias for "our people." **A12/A13:** Personal victimization experiences. |
+| **E3: Impunity Track Record** | De facto immunity for top-level political and economic elites. | **J_CONTROL (Item 3):** Blocking of investigations by the prosecution. **A4 (O/S):** Perceived corruption among Ministers/Party 
+Leaders. |
+
+### **Procurement Concentration**
+
+Both variables are measured on identical ordinal scales where lower values correspond to higher frequency of corrupt practices (“1 = very often”, “4 = never”). To ensure comparability and consistent interpretation, both variables are linearly rescaled to the unit interval [0,1], with higher values indicating greater corruption intensity:
+
+$$
+e1\_proc\_01=\frac{4-E1\_PART\_B}{3}, \quad sc4\_01=\frac{4-SC4}{3}
+$$​
+
+This transformation maps the highest frequency of corruption (“very often”) to 1 and the absence of such practices (“never”) to 0.
+
+The final Procurement Concentration index is defined as the simple average of the two normalized components:
+
+$$
+procurement\_concentration = \frac{e1\_proc\_{01} + sc4\_{01}}{2}
+$$
+
+This aggregation captures both the procedural manipulation of procurement (conditions tailored to specific firms) and the broader outcome of resource capture (allocation benefiting small groups).
+
+```{r}
+
+design_w <- update(
+  design_w,
+  e1_proc_01 = ifelse(E1_PART_B %in% 1:4, (4 - E1_PART_B)/3, NA),
+  sc4_01     = ifelse(SC4 %in% 1:4, (4 - SC4)/3, NA)
+)
+
+design_w$variables$procurement_concentration <- rowMeans(
+  design_w$variables[, c("e1_proc_01", "sc4_01")],
+  na.rm = TRUE
+)
+
+svymean(~procurement_concentration, design=design_w, na.rm=TRUE)
+```
+
+### **Admin Particularism**
+
+The perception components include (i) **targeted state inspections used to punish rivals** and (ii) **bureaucratic bias favoring “our people”.** Both variables are measured on ordinal scales where lower values correspond to higher frequency of such practices (“1 = very often”, “4 = never”). To ensure comparability, they are normalized to the unit interval [0,1], with higher values indicating negative outcomes:\
+
+$$
+e2\_audit\_01 = \frac{4 - E1\_PART\_A}{3}
+$$ $$
+e2\_bias\_01 = \frac{4 - E1\_PART\_C}{3}
+$$
+
+The experience component is constructed from respondents’ reported interactions with public officials (A12/A13), which are measured on a frequency scale (“1 = in all cases”, “4 = in no cases”). Responses indicating no contact or lack of knowledge are treated as missing. The variables are normalized to the same [0,1] scale:
+
+$$
+experience\_01 = (4 - A12/A13) / 3
+$$ The final Administrative Particularism index is defined as the average of the three components:
+
+$$
+Administrative\_Particularism = (e2\_audit\_01 + e2\_bias\_01 + experience\_01) / 3
+$$
+
+```{r}
+
+design_w <- update(
+  design_w,
+  e2_audit_01 = ifelse(E1_PART_A %in% 1:4, (4 - E1_PART_A) / 3, NA),
+  e2_bias_01  = ifelse(E1_PART_C %in% 1:4, (4 - E1_PART_C) / 3, NA),
+
+  a12a_01 = ifelse(A12A %in% 1:4, (4 - A12A) / 3, NA),
+  a12b_01 = ifelse(A12B %in% 1:4, (4 - A12B) / 3, NA),
+  a13a_01 = ifelse(A13A %in% 1:4, (4 - A13A) / 3, NA),
+  a13b_01 = ifelse(A13B %in% 1:4, (4 - A13B) / 3, NA),
+  a13c_01 = ifelse(A13C %in% 1:4, (4 - A13C) / 3, NA)
+)
+
+design_w$variables$experience_01 <- rowMeans(
+  design_w$variables[, c("a12a_01", "a12b_01", "a13a_01", "a13b_01", "a13c_01")],
+  na.rm = TRUE
+)
+
+design_w$variables$admin_particularism <- rowMeans(
+  design_w$variables[, c("e2_audit_01", "e2_bias_01", "experience_01")],
+  na.rm = TRUE
+)
+
+svymean(~e2_audit_01 + e2_bias_01 + experience_01 + admin_particularism,
+        design = design_w, na.rm = TRUE)
+
+svyquantile(
+  ~admin_particularism,
+  design_w,
+  quantiles = c(0, 0.25, 0.5, 0.75, 1),
+  na.rm = TRUE
+)
+```
+
+```{r}
+vars_e2 <- na.omit(design_w$variables[, c(
+  "e2_audit_01",
+  "e2_bias_01",
+  "experience_01"
+)])
+```
+
+```{r}
+fa_e2 <- factanal(vars_e2, factors = 1, scores = "regression")
+fa_e2
+```
+
+```{r}
+loadings <- fa_e2$loadings[,1]
+weights <- abs(loadings) / sum(abs(loadings))
+weights
+```
+
+```{r}
+design_w$variables$admin_particularism_fa <-
+  weights[1] * design_w$variables$e2_audit_01 +
+  weights[2] * design_w$variables$e2_bias_01 +
+  weights[3] * design_w$variables$experience_01
+```
+
+```{r}
+svymean(~admin_particularism+admin_particularism_fa, design=design_w, na.rm=TRUE)
+```
+
+### **Impunity track record**
+
+The primary component is based on respondents’ assessment of whether investigations are blocked by the prosecution (J5_CON_C). This variable is measured on an ordinal scale where lower values correspond to higher likelihood of such practices (“1 = very likely”, “4 = not likely at all”). It is normalized to the unit interval [0,1], with higher values indicating greater impunity:\
+\
+**j_impunity_01 = (4 - J5_CON_C) / 3**\
+\
+To capture the broader perception of elite-level corruption, an additional component is constructed from survey items measuring corruption among high-ranking officials (A4), specifically targeting political and executive actors (e.g. ministers, members of parliament, political leaders). These variables are also measured on ordinal scales and are normalized analogously:\
+\
+**a4_elite_01 = (4 - A4_elite) / 3**\
+\
+where A4_elite represents the average perception of corruption among top-level political actors. The final Impunity Track Record index is defined as the average of the normalized components:\
+\
+**E3 = (j_impunity_01 + a4_elite_01) / 2**
+
+```{r}
+# E3: Impunity Track Record
+
+design_w <- update(
+  design_w,
+  j_impunity_01 = ifelse(J5_CON_C %in% 1:4, (4 - J5_CON_C) / 3, NA),
+  a4o_01 = ifelse(A4O %in% 1:4, (4 - A4O) / 3, NA),
+  a4s_01 = ifelse(A4S %in% 1:4, (4 - A4S) / 3, NA)
+)
+
+# Elite corruption perception
+design_w$variables$a4_elite_01 <- rowMeans(
+  design_w$variables[, c("a4o_01", "a4s_01")],
+  na.rm = TRUE
+)
+
+# Final index
+design_w$variables$impunity_track <- rowMeans(
+  design_w$variables[, c("j_impunity_01", "a4_elite_01")],
+  na.rm = TRUE
+)
+
+# Diagnostics
+svymean(~j_impunity_01 + a4_elite_01 + impunity_track,
+        design = design_w, na.rm = TRUE)
+
+svyquantile(
+  ~impunity_track,
+  design_w,
+  quantiles = c(0, 0.25, 0.5, 0.75, 1),
+  na.rm = TRUE
+)
+```
+
+```{r}
+vars_e3 <- na.omit(design_w$variables[, c(
+  "j_impunity_01",
+  "a4_elite_01"
+)])
+
+cor(vars_e3)
 ```
