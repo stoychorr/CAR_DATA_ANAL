@@ -235,7 +235,7 @@ summary(svyglm(A2 ~ sex + age_group + urban, design = design_w))
 # Stoyanov's indexes
 
 | SCI Indicator | Theoretical Mechanism | Survey Question(s) |
-|:----------------------:|:----------------------:|:----------------------:|
+|:--:|:--:|:--:|
 | **L1: Consultation Exclusion** | Bypassing public scrutiny through fast-tracking. | **L_PROC (Item 1):** Frequency of accelerated procedures to avoid debate. **SC5:** Perception of whose interests prevail in decisions. |
 | **L2: RIA Manipulation** | Use of formalistic or fake evidence to justify laws. | **L_PROC (Item 2):** Formalism of impact assessments. **L_PROC (Item 3):** Direct authorship by lobbyists. |
 | **L3: Transparency Resistance** | Refusal to regulate lobbying and executive conflicts. | **L_LOBBY:** Deliberate avoidance of lobbying regulations. **A9/A10:** Social acceptability of favors for MPs/Ministers. |
@@ -406,11 +406,11 @@ fa
 ## Executive Dimension
 
 | SCI Indicator | Theoretical Mechanism | Survey Question(s) |
-|-------------------|-------------------|----------------------------------|
+|----|----|----|
 | **E1: Procurement Concentration** | Rigging tenders to favor specific political-business circles. | **E_PART (Item 2):** Conditions written for specific firms. **SC4:** Management of public resources for small groups. |
 | **E2: Admin. Particularism** | Selective and punitive application of state audits or permits. | **E_PART (Item 1):** Targeted audits to punish rivals. **E_PART (Item 3):** Bureaucratic bias for "our people." **A12/A13:** Personal victimization experiences. |
-| **E3: Impunity Track Record** | De facto immunity for top-level political and economic elites. | **J_CONTROL (Item 3):** Blocking of investigations by the prosecution. **A4 (O/S):** Perceived corruption among Ministers/Party 
-Leaders. |
+| **E3: Impunity Track Record** | De facto immunity for top-level political and economic elites. | **J_CONTROL (Item 3):** Blocking of investigations by the prosecution. **A4 (O/S):** Perceived corruption among Ministers/Party |
+| Leaders. |  |  |
 
 ### **Procurement Concentration**
 
