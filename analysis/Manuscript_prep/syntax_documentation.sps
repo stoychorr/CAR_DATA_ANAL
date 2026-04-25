@@ -1,7 +1,7 @@
 ﻿* Encoding: UTF-8.
 * CORRUPTION IN HIGHER EDUCATION 
  
- WEIGHT BY weight_final.
+ WEIGHT BY weight.
 
 * 1. CORE INDICES
 
@@ -36,21 +36,6 @@
   COMPUTE state_capture = MEAN.1(L_PROC_A, L_PROC_B, L_PROC_C, L_LOB, SC4).
   EXECUTE.
 
-* 2. CLEAN URBAN VARIABLE
-* Convert string to numeric.
-
-  AUTORECODE VARIABLES=urban /INTO urban_num.
-  EXECUTE.
-
-* Check mapping 
-  FREQUENCIES VARIABLES=urban urban_num.
-
-* Create dummies .
-* Assumption: 1=City, 2=Town, 3=Rural.
-
-COMPUTE urban_town  = (urban_num = 2).
-COMPUTE urban_rural = (urban_num = 3).
-EXECUTE.
 
 * DESCRIPTIVES (TABLE 1)
 
@@ -67,7 +52,7 @@ corr_highed corr_general tolerance_index experience_index distrust_highed state_
 
 * Urban vs others (sanity check).
 
-  MEANS TABLES=corr_highed BY urban_num
+  MEANS TABLES=corr_highed BY D26
   /CELLS MEAN COUNT STDDEV.
 
 * RELIABILITY (OPTIONAL BUT GOOD)
@@ -75,74 +60,53 @@ corr_highed corr_general tolerance_index experience_index distrust_highed state_
 RELIABILITY
 /VARIABLES=A4B A4C
 /SCALE('HigherEd corruption') ALL.
+* Collapse education to 2 categories (PhD merged with higher ed).
 
-* MAIN REGRESSION
+  RECODE D3
+  (1 THRU 5 = 1)
+  (6 THRU 8 = 2)
+  (9 = SYSMIS)
+  INTO educ_2cat.
 
-REGRESSION
-/DEPENDENT corr_highed
-/METHOD=ENTER tolerance_index distrust_highed urban_town urban_rural D1 D2 D3.
+VARIABLE LABELS educ_2cat "Education: low vs higher (incl. PhD)".
 
-REGRESSION
-/DEPENDENT corr_highed
-/METHOD=ENTER tolerance_index experience_index distrust_highed urban_town urban_rural D1 D2 D3.
-
-* EXTENDED MODEL (SYSTEMIC EFFECTS)
-
-REGRESSION
-/DEPENDENT corr_highed
-/METHOD=ENTER tolerance_index experience_index distrust_highed state_capture urban_town urban_rural D1 D2 D3.
-
-*-----------------------------*
-* 8. QUICK ROBUSTNESS CHECK
-  *-----------------------------*
-
-REGRESSION
-/DEPENDENT corr_general
-/METHOD=ENTER tolerance_index experience_index distrust_highed state_capture urban_town urban_rural D1 D2 D3.
-
-*additional analysis 
-
-RECODE D3
-(1 2 3 4 = 1)   /* Primary + Basic + Secondary */
-(5 = 2)       /* Semi-higher */
-(6 7 8= 3)   /* Higher education */
-INTO edu_group.
-
-VARIABLE LABELS edu_group "Education (collapsed: 3 groups)".
-VALUE LABELS edu_group
-1 "Low–Medium"
-2 "Semi-higher"
-3 "Higher".
+VALUE LABELS educ_2cat
+  1 "Low education (No education to Semi-higher)"
+  2 "Higher education (Bachelor, Master, PhD)".
 
 EXECUTE.
 
-ONEWAY tolerance_index BY edu_group
-/STATISTICS DESCRIPTIVES
-/POSTHOC = BONFERRONI.
+* D26 (settlement), reference = highest category (e.g. 3).
+COMPUTE D26_1 = (D26 = 1).
+COMPUTE D26_2 = (D26 = 2).
 
-*Quick tests to see if the regression results will change if we modify the D3 question
-*M1
+EXECUTE.
 
-REGRESSION
-/DEPENDENT corr_highed
-/METHOD=ENTER tolerance_index distrust_highed urban_town urban_rural D1 D2 edu_group.
-
-*M2
+* MAIN REGRESSION.
 
 REGRESSION
-/DEPENDENT corr_highed
-/METHOD=ENTER tolerance_index experience_index distrust_highed urban_town urban_rural D1 D2 edu_group.
-
-*M3
+  /DEPENDENT corr_highed
+  /METHOD=ENTER tolerance_index distrust_highed D26 D1 D2 educ_2cat.
 
 REGRESSION
-/DEPENDENT corr_highed
-/METHOD=ENTER tolerance_index experience_index distrust_highed state_capture urban_town urban_rural D1 D2 edu_group.
+  /DEPENDENT corr_highed
+  /METHOD=ENTER tolerance_index experience_index distrust_highed D26_1 D26_2 D1 D2 educ_2cat.
 
-*M4
+* EXTENDED MODEL (SYSTEMIC EFFECTS).
+
+REGRESSION
+  /DEPENDENT corr_highed
+  /METHOD=ENTER tolerance_index experience_index distrust_highed state_capture D26_1 D26_2 D1 D2 educ_2cat.
+
+* QUICK ROBUSTNESS CHECK
 
 REGRESSION
 /DEPENDENT corr_general
-/METHOD=ENTER tolerance_index experience_index distrust_highed state_capture urban_town urban_rural D1 D2 edu_group.
+/METHOD=ENTER tolerance_index experience_index distrust_highed state_capture D26_1 D26_1 D1 D2 D3.
+/CATEGORICAL = D3 D26.
 
-* END
+EXECUTE.
+
+ONEWAY tolerance_index BY educ_2cat
+/STATISTICS DESCRIPTIVES
+/POSTHOC = BONFERRONI.
